@@ -1,4 +1,5 @@
 library(tidyverse)
+library(dplyr)
 # Every row of ID is unique, setting this as the index.
 df <- read.csv("Datasets/X_test_8skS2ey.csv", row.names = "ID")
 df
@@ -21,22 +22,34 @@ nrows
 nfeature <- dim(df)[2]
 nfeature
 
-# number of unique values in each column
-num_unique_values_per_feature <- sapply(df, function(x) length(unique(x)))
-num_unique_values_per_feature
+# Specify the file path where you want to save the output
+output_file <- "unique_values_output.txt"
 
-# Get a list of the unique values in each feature
-unique_values <- lapply(df, unique)
+# Open the file for writing
+file_conn <- file(output_file, "w")
 
-# Print the unique values for each column
-for (i in 1: length(unique_values))
-
-  {
+# Loop through each column and print unique values to the file
+for (i in 1:length(unique_values)) {
+  cat("\nUnique values in column", colnames(df)[i], ":\n", file = file_conn)
+  cat(unique_values[[i]], file = file_conn)
   cat("Unique values in column", colnames(df)[i], ":\n")
   print(unique_values[[i]])
 }
 
+# Close the file
+close(file_conn)
 
+cat("Unique values have been written to", output_file, "\n")
+
+# Check data types in each column
+data_types <- sapply(df, class)
+data_types
+
+# I'm thinking of replacing the NAs in all of the cash_price features with 0s but
+# I noticed that it appears that 0 is a used value so I want to look where that is the
+# case and try to figure out why.
+has_zero <- df %>% filter(any(df == 0)==TRUE)
+has_zero
 # Thoughts: first we need to look at the unique values in each column. Are there any columns with
 # no actual values? If so, let's drop them. Can any columns be combined or binned?
 # Are all of the ID numbers unique? If there are duplicates in the training set, are the target
