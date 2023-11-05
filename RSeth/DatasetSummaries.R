@@ -1,8 +1,0 @@
-xTestData <- read.csv("Datasets/X_test_8skS2ey.csv")
-xTrainData <- read.csv("Datasets/X_train_G3tdtEn.csv")
-yTestData <- read.csv("Datasets/Y_test_random_2.csv")
-yTrainData <- read.csv("Datasets/Y_train_2_XPXJDyy.csv")
-summary(xTestData)
-summary(xTrainData)
-summary(yTestData)
-summary(yTrainData)
