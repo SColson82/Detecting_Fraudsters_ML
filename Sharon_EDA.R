@@ -1,5 +1,6 @@
 library(tidyverse)
 library(dplyr)
+library(ggplot2)
 # Every row of ID is unique, setting this as the index.
 df <- read.csv("Datasets/X_test_8skS2ey.csv", row.names = "ID")
 df
@@ -50,6 +51,64 @@ data_types
 # case and try to figure out why.
 has_zero <- df %>% filter(any(df == 0)==TRUE)
 has_zero
+
+# Create a list of cash_price column names
+cash_price_columns <- colnames(df)[grepl("^cash_price", colnames(df))]
+
+# Create histograms for each cash_price column with a white background
+for (col in cash_price_columns) {
+  ggplot(df, aes(x = df[, col])) +
+    geom_histogram(binwidth = 100, fill = "lightblue", color = "black") +
+    labs(title = col, x = "Cash Price", y = "Frequency") +
+    # theme_minimal() +
+    theme(panel.background = element_rect(fill = "white"))
+
+  # Save each plot to a file (optional)
+  ggsave(filename = paste0("images/",col, "_histogram.png"), plot = last_plot())
+}
+warnings()
+
+# Create a list of item column names
+item_columns <- colnames(df)[grepl("^item", colnames(df))]
+
+# Create histograms for each item column with a white background
+for (col in item_columns) {
+  p <- ggplot(df, aes(x = df[, col])) +
+    geom_histogram(binwidth = 100, fill = "lightblue", color = "black", stat = "count") +
+    labs(title = col, x = "Cash Price", y = "Frequency") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white")) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=1.5))  # Increase hjust for more spacing
+
+  # Save each plot to a file (optional)
+  ggsave(filename = paste0("images/", col, "_histogram.png"), plot = p)
+}
+
+# Create a list of make column names
+make_columns <- colnames(df)[grepl("^make", colnames(df))]
+
+# Create bar charts for each make column with a white background
+for (col in make_columns) {
+  p <- ggplot(df, aes(x = df[, col])) +
+    geom_bar(fill = "lightblue", color = "black") +  # Bar chart
+    labs(title = col, x = "Make", y = "Frequency") +
+    theme_minimal() +
+    theme(panel.background = element_rect(fill = "white")) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 0.5, vjust = 0.5))  # Center the labels and add space
+
+  # Widen the x-axis
+  p <- p + theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Center the labels and add space
+
+  # Save each plot to a file (optional)
+  ggsave(filename = paste0("images/", col, "_barchart.png"), plot = p)
+}
+
+
+
+
+glimpse(df)
+
+?geom_histogram
 # Thoughts: first we need to look at the unique values in each column. Are there any columns with
 # no actual values? If so, let's drop them. Can any columns be combined or binned?
 # Are all of the ID numbers unique? If there are duplicates in the training set, are the target
