@@ -1,13 +1,15 @@
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
+install.packages("GGally")
+library(GGally)
 # Every row of ID is unique, setting this as the index.
 df <- read.csv("Datasets/X_train_G3tdtEn.csv", row.names = "ID")
 df
-df <- read.csv("Datasets/Y_train_2_XPXJDyy.csv", row.names = "ID")
-df
-df<- read.csv("Datasets/X_test_8skS2ey.csv", row.names = "ID")
-df
+# df <- read.csv("Datasets/Y_train_2_XPXJDyy.csv", row.names = "ID")
+# df
+# df<- read.csv("Datasets/X_test_8skS2ey.csv", row.names = "ID")
+# df
 glimpse(df)
 summary(df)
 
@@ -26,6 +28,115 @@ nrows
 # number columns
 nfeature <- dim(df)[2]
 nfeature
+
+
+### Create Scatter plots
+# Select the numeric columns from your dataframe
+numeric_cols <- df %>%
+  select_if(is.numeric)
+
+# Get the names of the numeric columns
+column_names <- colnames(numeric_cols)
+
+# Create a directory to save the scatterplots (optional)
+dir.create("scatterplots", showWarnings = FALSE)
+
+# Loop through each combination of numeric columns and create scatterplots
+for (i in 1:(length(column_names) - 1)) {
+  for (j in (i + 1):length(column_names)) {
+    col1 <- column_names[i]
+    col2 <- column_names[j]
+
+    # Create the scatterplot
+    plot_title <- paste("Scatterplot of", col1, "vs", col2)
+    pdf(paste("scatterplots/scatterplot_", col1, "_vs_", col2, ".pdf"), width = 8, height = 6)  # Adjust the size as needed
+    plot(numeric_cols[, col1], numeric_cols[, col2],
+         pch = 20,  # Adjust point shape
+         cex = 0.7,  # Adjust text size
+         main = plot_title,
+         xlab = col1,
+         ylab = col2)
+    dev.off()
+  }
+}
+
+### Create bar charts
+# Select all columns from your dataframe
+all_cols <- df
+
+# Create a directory to save the bar charts (optional)
+dir.create("bar_charts", showWarnings = FALSE)
+
+# Loop through each combination of columns and create bar charts
+for (i in 1:ncol(all_cols)) {
+  for (j in 1:ncol(all_cols)) {
+    if (i != j) {
+      col1 <- colnames(all_cols)[i]
+      col2 <- colnames(all_cols)[j]
+
+      # Create a bar chart
+      chart_title <- paste("Bar Chart of", col1, "vs", col2)
+      pdf(paste("bar_charts/bar_chart_", col1, "_vs_", col2, ".pdf"), width = 8, height = 6)  # Adjust the size as needed
+      barplot(table(all_cols[, col1], all_cols[, col2]),
+              beside = TRUE,  # Display bars beside each other
+              main = chart_title,
+              xlab = col1,
+              ylab = col2)
+      dev.off()
+    }
+  }
+}
+
+### Create histograms
+# Select all numeric columns from your dataframe
+numeric_cols <- df %>%
+  select_if(is.numeric)
+
+# Create a directory to save the histograms (optional)
+dir.create("histograms", showWarnings = FALSE)
+
+# Loop through each combination of columns and create histograms
+for (i in 1:ncol(numeric_cols)) {
+  for (j in 1:ncol(numeric_cols)) {
+    if (i != j) {
+      col1 <- colnames(numeric_cols)[i]
+      col2 <- colnames(numeric_cols)[j]
+
+      # Create histograms
+      hist_title <- paste("Histogram of", col1, "vs", col2)
+      pdf(paste("histograms/histogram_", col1, "_vs_", col2, ".pdf"), width = 8, height = 6)  # Adjust the size as needed
+      hist2d(numeric_cols[, col1], numeric_cols[, col2], main = hist_title)
+      dev.off()
+    }
+  }
+}
+
+
+### Box and Whisker plots
+# Select all numeric columns from your dataframe
+numeric_cols <- df %>%
+  select_if(is.numeric)
+
+# Create a directory to save the box-and-whisker plots (optional)
+dir.create("box_plots", showWarnings = FALSE)
+
+# Loop through each combination of columns and create box-and-whisker plots
+for (i in 1:ncol(numeric_cols)) {
+  for (j in 1:ncol(numeric_cols)) {
+    if (i != j) {
+      col1 <- colnames(numeric_cols)[i]
+      col2 <- colnames(numeric_cols)[j]
+
+      # Create box-and-whisker plots
+      boxplot_title <- paste("Box-and-Whisker Plot of", col1, "vs", col2)
+      pdf(paste("box_plots/boxplot_", col1, "_vs_", col2, ".pdf"), width = 8, height = 6)  # Adjust the size as needed
+      boxplot(numeric_cols[, col1] ~ numeric_cols[, col2], main = boxplot_title)
+      dev.off()
+    }
+  }
+}
+
+
 
 # Specify the file path where you want to save the output
 output_file <- "unique_values_output.txt"
