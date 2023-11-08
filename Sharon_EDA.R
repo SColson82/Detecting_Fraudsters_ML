@@ -2,7 +2,11 @@ library(tidyverse)
 library(dplyr)
 library(ggplot2)
 # Every row of ID is unique, setting this as the index.
-df <- read.csv("Datasets/X_test_8skS2ey.csv", row.names = "ID")
+df <- read.csv("Datasets/X_train_G3tdtEn.csv", row.names = "ID")
+df
+df <- read.csv("Datasets/Y_train_2_XPXJDyy.csv", row.names = "ID")
+df
+df<- read.csv("Datasets/X_test_8skS2ey.csv", row.names = "ID")
 df
 glimpse(df)
 summary(df)
