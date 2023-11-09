@@ -2,8 +2,10 @@
 library(dplyr)
 library(reshape2)
 
+setwd("~")
+
 # Read csv file into a dataframe
-xTestData <- read.csv("/Users/seththompson/data science project/Detecting_Fraudsters_ML/Seth/Datasets/X_test_8skS2ey.csv")
+xTestData <- read.csv("Detecting_Fraudsters_ML/Seth/Datasets/X_test_8skS2ey.csv")
 
 # reference code for reading the other 3 csv files
 # xTrainData <- read.csv("/Users/seththompson/data science project/Detecting_Fraudsters_ML/Seth/Datasets/X_train_G3tdtEn.csv")

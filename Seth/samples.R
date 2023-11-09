@@ -7,12 +7,12 @@ setwd("~")
 # Read csv file into a dataframe
 
 # lists purchases
-xTestData <- read.csv("/Detecting_Fraudsters_ML/Seth/Datasets/X_test_8skS2ey.csv")
-xTrainData <- read.csv("/Detecting_Fraudsters_ML/Seth/Datasets/X_train_G3tdtEn.csv")
+xTestData <- read.csv("Detecting_Fraudsters_ML/Seth/Datasets/X_test_8skS2ey.csv")
+xTrainData <- read.csv("Detecting_Fraudsters_ML/Seth/Datasets/X_train_G3tdtEn.csv")
 
 #lists fraud flags
-yTestData <- read.csv("/Detecting_Fraudsters_ML/Seth/Datasets/Y_test_random_2.csv")
-yTrainData <- read.csv("/Detecting_Fraudsters_ML/Seth/Datasets/Y_train_2_XPXJDyy.csv")
+yTestData <- read.csv("Detecting_Fraudsters_ML/Seth/Datasets/Y_test_random_2.csv")
+yTrainData <- read.csv("Detecting_Fraudsters_ML/Seth/Datasets/Y_train_2_XPXJDyy.csv")
 
 # merges test dataframes based off of ID
 mergeTestData <- merge(xTestData,yTestData,by="ID")
