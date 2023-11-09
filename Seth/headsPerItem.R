@@ -6,7 +6,7 @@ library(reshape2)
 xTestData <- read.csv("/Users/seththompson/data science project/Detecting_Fraudsters_ML/Seth/Datasets/X_test_8skS2ey.csv")
 
 # reference code for reading the other 3 csv files
-xTrainData <- read.csv("/Users/seththompson/data science project/Detecting_Fraudsters_ML/Seth/Datasets/X_train_G3tdtEn.csv")
+# xTrainData <- read.csv("/Users/seththompson/data science project/Detecting_Fraudsters_ML/Seth/Datasets/X_train_G3tdtEn.csv")
 # yTestData <- read.csv("/Users/seththompson/data science project/Detecting_Fraudsters_ML/Seth/Datasets/Y_test_random_2.csv")
 # yTrainData <- read.csv("/Users/seththompson/data science project/Detecting_Fraudsters_ML/Seth/Datasets/Y_train_2_XPXJDyy.csv")
 
