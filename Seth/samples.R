@@ -2,15 +2,17 @@
 library(dplyr)
 library(reshape2)
 
+setwd("~")
+
 # Read csv file into a dataframe
 
 # lists purchases
-xTestData <- read.csv("/Users/seththompson/data science project/Detecting_Fraudsters_ML/Seth/Datasets/X_test_8skS2ey.csv")
-xTrainData <- read.csv("/Users/seththompson/data science project/Detecting_Fraudsters_ML/Seth/Datasets/X_train_G3tdtEn.csv")
+xTestData <- read.csv("/Detecting_Fraudsters_ML/Seth/Datasets/X_test_8skS2ey.csv")
+xTrainData <- read.csv("/Detecting_Fraudsters_ML/Seth/Datasets/X_train_G3tdtEn.csv")
 
 #lists fraud flags
-yTestData <- read.csv("/Users/seththompson/data science project/Detecting_Fraudsters_ML/Seth/Datasets/Y_test_random_2.csv")
-yTrainData <- read.csv("/Users/seththompson/data science project/Detecting_Fraudsters_ML/Seth/Datasets/Y_train_2_XPXJDyy.csv")
+yTestData <- read.csv("/Detecting_Fraudsters_ML/Seth/Datasets/Y_test_random_2.csv")
+yTrainData <- read.csv("/Detecting_Fraudsters_ML/Seth/Datasets/Y_train_2_XPXJDyy.csv")
 
 # merges test dataframes based off of ID
 mergeTestData <- merge(xTestData,yTestData,by="ID")
@@ -32,7 +34,7 @@ print(notFraudTestSample)
 mergeTrainData <- merge(xTrainData,yTrainData,by="ID")
 
 # first 100 rows
-sampleMergedTrainData <- head(mergeTrainData[, c(2,26,50,74,98,122,146,148)],300)
+sampleMergedTrainData <- head(mergeTrainData[, c(2,26,50,74,98,122,146,148)],100)
 
 #displays rows in sample where fraud flag is over 90%
 print("fraud Train:")
@@ -45,3 +47,6 @@ print(fraudTrainSample)
 print("not fraud Train:")
 notFraudSample <- sampleMergedTestData[sampleMergedTestData$fraud_flag < 0.10,]
 print(notFraudSample)
+
+
+
