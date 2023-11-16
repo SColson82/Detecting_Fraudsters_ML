@@ -1,6 +1,7 @@
 #This will be used for this class's project. 
 
 library(ROCR)
+library(data.table)
 
 setwd("C:/Users/gavmc/Documents/Detecting_Fraudsters_ML/Datasets")
 print(getwd())
@@ -11,7 +12,7 @@ ytrain <- read.csv("Y_train_2_XPXJDyy.csv")
 ytest <- read.csv("Y_test_random_2.csv")
 
 summary(xtrain)
-summary(ytrait)
+summary(ytrain)
 
 summary(xtest)
 summary(ytest)
@@ -73,5 +74,16 @@ boxplot(cashPerOrder)
 #newYTrain[111, 111]
 
 
+df5 <- read.csv("unique_item_counts_fraud_flag.csv")
+
+df5
+
+#This should combine the several unique values that are similar.
+df5[df5 == "BABY & CHILD TRAVEL" | df5 == "BABY CHANGING" | df5 == "BABY CHILD TRAVEL" | df5 == "BABY FEEDING" | df5 == "BABY PLAY EQUIPMENT" | df5 == "BABYWEAR" ] <- "Baby"
+
+df5[df5 == "BAGS & CARRY CASES" | df5 == "BAGS CARRY CASES" | df5 == "BAGS WALLETS ACCESSORIES" | df5 == "BAGS, WALLETS & ACCESSORIES"] <- "Bags"
 
 
+
+
+df5
