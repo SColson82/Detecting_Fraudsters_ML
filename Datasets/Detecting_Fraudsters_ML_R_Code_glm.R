@@ -19,6 +19,7 @@ summary(ytest)
 df <- read.csv("X_train_G3tdtEn.csv", row.names = "ID")
 df
 
+df2 <- read.csv("Y_train_2_XPXJDyy.csv", row.names = "ID")
 
 cashPerOrder <- c(na.omit(df$cash_price1 + df$cash_price2 + df$cash_price3 + df$cash_price4
                        +df$cash_price5 + df$cash_price6 + df$cash_price7 + df$cash_price8
@@ -34,3 +35,41 @@ cashPerOrder
 
 
 boxplot(cashPerOrder)
+
+summary(cashPerOrder)
+
+df
+
+cashPerOrder <- rowSums(df[, c(25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48)], na.rm = TRUE)
+
+cashPerOrder
+
+df3 <- df
+
+df3 <- df[,-25:-48]
+
+df3
+
+df3$cashTotPrice <- cashPerOrder
+
+df3
+
+#putting the y_train data and leaving out the index var
+
+#newYTrain <- c(df2$ID, df2$fraud_flag)
+
+#newYTrain
+
+#as.data.frame(newYTrain)
+
+#newYTrain
+
+#that was incorrect. 
+
+#newYTrain <- c(ytrain$ID, ytrain$fraud_flag)
+
+#newYTrain[111, 111]
+
+
+
+
