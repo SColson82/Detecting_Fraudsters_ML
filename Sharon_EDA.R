@@ -1,15 +1,56 @@
 library(tidyverse)
-install.packages("dplyr")
 library(dplyr)
 library(ggplot2)
 
-xTrainData <- read.csv("Datasets/X_train_G3tdtEn.csv")
-yTrainData <- read_csv("Datasets/Y_train_2_XPXJDyy.csv")
+xTrainData <- read.csv("Datasets/X_train_G3tdtEn.csv",row.names = "ID")
+xTrainData
+yTrainData <- read.csv("Datasets/Y_train_2_XPXJDyy.csv")
 yTrainData
+
+# Assuming yTrainData is your data frame
+yTrainData <- yTrainData %>%
+  select(ID, fraud_flag)
+
+yTrainData
+# Set "ID" as row names
+rownames(yTrainData) <- yTrainData$ID
+yTrainData
+# Keep only the "fraud_flag" column
+yTrainData <- yTrainData[, "fraud_flag", drop = FALSE]
+yTrainData
+
+logisticModel<-glm(yTrainData ~ xTrainData, family="binomial")
+summary(logisticModel)
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Remove the "ID" column
+#yTrainData <- yTrainData[, -1]
+
+# Print the modified data frame
+yTrainData
+
+
+yTrainData <- data.frame(yTrainData$fraud_flag)
+head(yTrainData)
+colnames(yTrainData)
+
 unique(yTrainData$fraud_flag)
 yTrainData %>%
   group_by(fraud_flag) %>%
   count()
+
+
 fraud <- filter(yTrainData, fraud_flag == 1)
 fraud
 
@@ -54,20 +95,10 @@ file_conn <- write.table(merged_fraud_df, file = output_file, sep = ",", quote =
 
 glimpse(merged_fraud_df)
 
-cashPerOrder <- c(na.omit(df$cash_price1 + df$cash_price2 + df$cash_price3 + df$cash_price4
-                          +df$cash_price5 + df$cash_price6 + df$cash_price7 + df$cash_price8
-                          +df$cash_price9 + df$cash_price10 + df$cash_price11
-                          +df$cash_price12 + df$cash_price13 + df$cash_price13
-                          +df$cash_price14 + df$cash_price15 + df$cash_price16
-                          +df$cash_price17 + df$cash_price18 + df$cash_price19
-                          +df$cash_price20 + df$cash_price21 + df$cash_price22
-                          +df$cash_price23 + df$cash_price24))
 
 
-cashPerOrder
 
 
-boxplot(cashPerOrder)
 
 # Get the names of all the features in your data
 features <- names(xTrainData)
