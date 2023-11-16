@@ -1,4 +1,5 @@
 xTrainData <- read.csv("Datasets/X_train_G3tdtEn.csv",row.names = "ID")
+glimpse(xTrainData)
 xTrainData <- apply(xTrainData, 2, function(x) ifelse(x == "", NA, x))
 xTrainData
 yTrainData <- read.csv("Datasets/Y_train_2_XPXJDyy.csv")
@@ -18,6 +19,10 @@ frequency_table <- table(unlist(apply(xTrainData[, paste0("item", 1:24)], 2, fun
 # Convert the table to a data frame for better handling
 frequency_df <- as.data.frame(frequency_table)
 colnames(frequency_df) <- c("Value", "Frequency")
+frequency_df
+write.csv(frequency_df, "feature_engineering/unique_item_counts.csv", row.names = FALSE)
+summary(frequency_df)
+glimpse(frequency_df)
 
 # Create a vector of colors based on unique values
 value_colors <- rainbow(length(frequency_df$Value))

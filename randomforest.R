@@ -6,14 +6,11 @@ library(dplyr)
 
 xTrainData <- read.csv("Datasets/X_train_G3tdtEn.csv",row.names = "ID")
 xTrainData <- apply(xTrainData, 2, function(x) ifelse(x == "", NA, x))
-xTrainData
 yTrainData <- read.csv("Datasets/Y_train_2_XPXJDyy.csv")
-yTrainData
 yTrainData <- yTrainData %>%
   select(ID, fraud_flag)
 rownames(yTrainData) <- yTrainData$ID
 yTrainData <- yTrainData[, "fraud_flag", drop = FALSE]
-yTrainData
 train_data <- cbind(xTrainData, y = yTrainData)
 train_data
 summary(train_data)

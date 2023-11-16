@@ -18,7 +18,8 @@ frequency_table <- table(unlist(apply(xTrainData[, paste0("make", 1:24)], 2, fun
 # Convert the table to a data frame for better handling
 frequency_df <- as.data.frame(frequency_table)
 colnames(frequency_df) <- c("Value", "Frequency")
-
+glimpse(frequency_df)
+write.csv(frequency_df, "feature_engineering/unique_Make_counts.csv", row.names = FALSE)
 # Create a vector of colors based on unique values
 value_colors <- rainbow(length(frequency_df$Value))
 

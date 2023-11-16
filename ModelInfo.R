@@ -18,7 +18,9 @@ frequency_table <- table(unlist(apply(xTrainData[, paste0("model", 1:24)], 2, fu
 # Convert the table to a data frame for better handling
 frequency_df <- as.data.frame(frequency_table)
 colnames(frequency_df) <- c("Value", "Frequency")
-
+frequency_df
+write.csv(frequency_df, "feature_engineering/unique_model_counts.csv", row.names = FALSE)
+glimpse(frequency_df)
 # Create a vector of colors based on unique values
 value_colors <- rainbow(length(frequency_df$Value))
 
