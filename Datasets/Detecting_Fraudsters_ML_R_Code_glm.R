@@ -54,6 +54,8 @@ df3$cashTotPrice <- cashPerOrder
 
 df3
 
+
+boxplot(cashPerOrder)
 #putting the y_train data and leaving out the index var
 
 #newYTrain <- c(df2$ID, df2$fraud_flag)
