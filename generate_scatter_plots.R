@@ -49,7 +49,14 @@ ggplot(frequency_df, aes(x = Frequency, y = average_fraud_flag)) +
        x = "Frequency",
        y = "Average Fraud Flag")
 
-
+# Create a scatter plot of frequency vs average_fraud_flag with log scale
+ggplot(frequency_df, aes(x = Frequency, y = average_fraud_flag)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(title = "Scatter Plot of Frequency vs Average Fraud Flag (Log Scale)",
+       x = "Frequency (log scale)",
+       y = "Average Fraud Flag (log scale)")
 
 
 

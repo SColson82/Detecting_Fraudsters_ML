@@ -44,10 +44,20 @@ frequency_df$average_fraud_flag <- sapply(frequency_df$Value, function(search_va
 # Print the updated frequency_df
 print(frequency_df)
 write.csv(frequency_df, "feature_engineering/unique_make_counts_fraud_flag.csv", row.names = FALSE)
-
+frequency_df <- read.csv("feature_engineering/unique_make_counts_fraud_flag.csv")
+frequency_df
 # Create a scatter plot of frequency vs average_fraud_flag
 ggplot(frequency_df, aes(x = Frequency, y = average_fraud_flag)) +
   geom_point() +
   labs(title = "Scatter Plot of Make Frequency vs Average Fraud Flag",
        x = "Frequency",
        y = "Average Fraud Flag")
+
+# Create a scatter plot of frequency vs average_fraud_flag with log scale
+ggplot(frequency_df, aes(x = Frequency, y = average_fraud_flag)) +
+  geom_point() +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(title = "Scatter Plot of Make Frequency vs Average Fraud Flag (Log Scale)",
+       x = "Frequency (log scale)",
+       y = "Average Fraud Flag (log scale)")
