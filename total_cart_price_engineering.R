@@ -53,3 +53,6 @@ ggplot(train_data, aes(x = total_cash_per_cart, y = fraud_flag)) +
        y = "Fraud Flag")
 # Save the modified data as a new CSV file
 write.csv(train_data, "feature_engineering/dataTotalCartPrice.csv", row.names = FALSE)
+summary(train_data)
+
+
