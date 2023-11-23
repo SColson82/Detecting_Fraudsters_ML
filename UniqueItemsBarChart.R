@@ -1,3 +1,4 @@
+library(tidyverse)
 xTrainData <- read.csv("Datasets/X_train_G3tdtEn.csv",row.names = "ID")
 glimpse(xTrainData)
 xTrainData <- apply(xTrainData, 2, function(x) ifelse(x == "", NA, x))
