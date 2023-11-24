@@ -327,11 +327,11 @@ ggplot(train_data, aes(x = as.factor(fraud_flag), y = total_cash_per_cart, fill 
   coord_cartesian(ylim = quantile(train_data$total_cash_per_cart, c(0.05, 0.95)))
 
 # Total items per cart with outliers included.
-ggplot(train_data, aes(x = as.factor(fraud_flag), y = Nb_of_items, fill = as.factor(fraud_flag))) +
+ggplot(train_data, aes(x = as.factor(fraud_flag), y = Total_Nb_In_Cart, fill = as.factor(fraud_flag))) +
   geom_boxplot() +
   scale_x_discrete(labels = c("no fraud", "fraud")) +
   ggtitle("Boxplot of Number of Items in Cart") +
-  coord_cartesian(ylim = quantile(train_data$Nb_of_items, c(0.05, 0.95)))
+  coord_cartesian(ylim = quantile(train_data$Total_Nb_In_Cart, c(0.05, 0.95)))
 
 # Assuming your data frame is named train_data
 # Replace NA values with 0
@@ -429,5 +429,5 @@ train_data <- train_data[, !grepl("model", names(train_data))]
 glimpse(train_data)
 summary(train_data)
 
-write.csv(train_data, file = "feature_engineering/train_data.csv", row.names = FALSE)
+write.csv(train_data, file = "feature_engineering/train_data.csv", row.names = TRUE)
 
