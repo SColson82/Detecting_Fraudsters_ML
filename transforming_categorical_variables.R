@@ -174,7 +174,7 @@ list(c("BATH & BODYCARE",
     "HOME SAFETY EQUIPMENT",
     "HOT DRINK PREPARATION",
     "HOUSEHOLD CLEANING"
-  ), "item_other"),
+  ), "i_other"),
 list(c("BARBECUES & ACCESSORIES",
     "BARBECUES ACCESSORIES",
     "BARWARE",
@@ -338,7 +338,7 @@ train_data[is.na(train_data)] <- 0
 train_data
 # Specify the values you want to count
 values_to_count <- c("children", "travel", "computer_accessories", "entertainment",
-                     "home_accessories", "item_other", "furniture",
+                     "home_accessories", "i_other", "furniture",
                      "warranties_fulfillment_service", "apparel", "computers")
 
 # Loop through each value and create a new column for each
@@ -389,7 +389,7 @@ check_frequency_table
 values_to_count <- c("ERCOL FOR RETAILER", "LG", "SILENTNIGHT", "TOMMEE TIPPEE",
                      "ANYDAY RETAILER", "G PLAN VINTAGE", "LOGITECH",
                      "SILVER CROSS", "WEBER", "APPLE", "HALO", "MAXI-COSI", "SONOS", "WEST ELM",
-                     "AVF","HERMAN MILLER","MICROSOFT","SONY","BUGABOO","HYPNOS","make_other","STOKKE",
+                     "AVF","HERMAN MILLER","MICROSOFT","SONY","BUGABOO","HYPNOS","ma_other","STOKKE",
                      "CROFT COLLECTION","INNOVATION LIVING","PANASONIC","SWOON","CYBEX","JOSEPH JOSEPH","PHILIPS","SWYFT","DYSON","KETTLER","RETAILER","TARGUS","EMMA",
                      "LE CREUSET","SAMSUNG","TEMPUR")
 
@@ -410,5 +410,23 @@ glimpse(train_data)
 # Remove columns with the word "item" in their names
 train_data <- train_data[, !grepl("goods_code", names(train_data))]
 glimpse(train_data)
+summary(train_data)
 
+# Apply table function across all columns, ignoring NA values
+frequency_table <- table(unlist(apply(xTrainData[, paste0("model", 1:24)], 2, function(x) na.omit(as.character(x)))))
+# Convert the frequency table to a data frame
+frequency_df <- as.data.frame(frequency_table)
+
+# Sort the data frame by counts in descending order
+sorted_frequency_df <- frequency_df[order(-frequency_df$Freq), ]
+
+# Print the sorted frequency table
+print(sorted_frequency_df)
+
+# Remove columns with the word "item" in their names
+train_data <- train_data[, !grepl("model", names(train_data))]
+glimpse(train_data)
+summary(train_data)
+
+write.csv(train_data, file = "feature_engineering/train_data.csv", row.names = FALSE)
 
