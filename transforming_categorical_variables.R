@@ -95,7 +95,8 @@ print(sorted_unique_items_df)
 #train_data_subset
 #glimpse(train_data_subset)
 
-
+#Changing Nb_of_items column name so it doesn't get deleted later.
+colnames(train_data)[colnames(train_data) == "Nb_of_items"] <- "Total_Nb_In_Cart"
 
 # Automating this process:
 
