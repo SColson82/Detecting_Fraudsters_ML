@@ -37,7 +37,6 @@ unique_items_df <- read.csv("feature_engineering/unique_item_counts.csv")
 unique_items_df
 
 
-# Assuming your_dataframe_name is the name of your dataframe
 sorted_unique_items_df <- unique_items_df %>%
   arrange(desc(Frequency))
 
@@ -471,22 +470,22 @@ write.csv(check_frequency_table, file = "feature_engineering/check_frequency_tab
 # Specify the values you want to count
 values_to_count <- c("2019 APPLE AIRPODS WITH CHARGING CASE",
                      "2019 APPLE MACBOOK PRO 16 TOUCH BAR INTEL CORE I9",
-                     '2019 APPLE MACBOOK PRO 16""',
+                     '2019 APPLE MACBOOK PRO 16"',
                      "2020 APPLE IMAC 21 5 ALL-IN-ONE INTEL CORE I5 8GB",
                      "2020 APPLE IMAC 27 ALL-IN-ONE",
                      "2020 APPLE IMAC 27 ALL-IN-ONE INTEL CORE I5 8GB RA",
                      "2020 APPLE IMAC 27 ALL-IN-ONE INTEL CORE I7 8GB RA",
                      "2020 APPLE IPAD AIR 10 9 A14 BIONIC PROCESSOR IOS",
-                     '2020 APPLE IPAD AIR 10.9""',
-                     '2020 APPLE IPAD PRO 11""',
-                     '2020 APPLE IPAD PRO 12.9""',
+                     '2020 APPLE IPAD AIR 10.9"',
+                     '2020 APPLE IPAD PRO 11"',
+                     '2020 APPLE IPAD PRO 12.9"',
                      "2020 APPLE MAC MINI DESKTOP COMPUTER M1 PROCESSOR",
                      "2020 APPLE MACBOOK AIR",
                      "2020 APPLE MACBOOK AIR 13 3 RETINA DISPLAY M1 PROC",
                      "2020 APPLE MACBOOK PRO",
                      "2020 APPLE MACBOOK PRO 13 TOUCH BAR INTEL CORE I5",
                      "2020 APPLE MACBOOK PRO 13 TOUCH BAR M1 PROCESSOR 8",
-                     '2020 APPLE MACBOOK PRO 13""',
+                     '2020 APPLE MACBOOK PRO 13"',
                      "2021 APPLE AIRPODS WITH MAGSAFE CHARGING CASE 3RD",
                      "2021 APPLE IMAC 24 ALL-IN-ONE M1 PROCESSOR 8GB RAM",
                      "2021 APPLE IPAD 10 2 A13 BIONIC PROCESSOR IPADOS W",
@@ -495,13 +494,13 @@ values_to_count <- c("2019 APPLE AIRPODS WITH CHARGING CASE",
                      "2021 APPLE IPAD PRO 11 M1 PROCESSOR IOS WI-FI 256G",
                      "2021 APPLE IPAD PRO 11 M1 PROCESSOR IOS WI-FI 512G",
                      "2021 APPLE IPAD PRO 11 M1 PROCESSOR IOS WI-FI CELL",
-                     '2021 APPLE IPAD PRO 11""',
+                     '2021 APPLE IPAD PRO 11"',
                      "2021 APPLE IPAD PRO 12 9 M1 PROCESSOR IOS WI-FI 12",
                      "2021 APPLE IPAD PRO 12 9 M1 PROCESSOR IOS WI-FI 1T",
                      "2021 APPLE IPAD PRO 12 9 M1 PROCESSOR IOS WI-FI 25",
                      "2021 APPLE IPAD PRO 12 9 M1 PROCESSOR IOS WI-FI 51",
                      "2021 APPLE IPAD PRO 12 9 M1 PROCESSOR IOS WI-FI CE",
-                     '2021 APPLE IPAD PRO 12.9""',
+                     '2021 APPLE IPAD PRO 12.9"',
                      "2021 APPLE MACBOOK PRO 14 M1 PRO PROCESSOR 16GB RA",
                      "2021 APPLE MACBOOK PRO 16 M1 PRO PROCESSOR 16GB RA",
                      "2022 APPLE IPAD AIR 10 9 M1 PROCESSOR IPADOS WI-FI",
@@ -623,6 +622,23 @@ train_data <- train_data[, !grepl("cash_price", names(train_data))]
 train_data <- train_data[, !grepl("prod_purchas", names(train_data))]
 train_data <- train_data[, !grepl("item", names(train_data))]
 glimpse(train_data)
+
+# Checking that the values with "" at the end were properly processed
+column_name <- "2019 APPLE MACBOOK PRO 16\""
+
+# Check the number of unique values in the specified column
+unique_values <- unique(train_data[[column_name]])
+num_unique_values <- length(unique_values)
+
+# Print the result
+cat("Number of unique values in", column_name, ":", num_unique_values, "\n")
+
+
+# Create a table of frequencies for unique values in the specified column
+value_counts <- table(train_data[[column_name]])
+
+# Print the unique values and their frequencies
+print(value_counts)
 
 write.csv(train_data, file = "feature_engineering/train_data_model.csv", row.names = TRUE)
 
