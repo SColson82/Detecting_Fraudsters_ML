@@ -77,9 +77,15 @@ test_data$fraud_flag
 test_data$predicted_class
 # Create confusion matrix
 conf_matrix <- table(test_data$fraud_flag, test_data$predicted_class)
-
+glimpse(test_data)
 # Print the confusion matrix
 conf_matrix
+
+# Calculate Root Mean Squared Error (RMSE)
+rmse <- sqrt(mean((test_data$fraud_flag - test_data$predicted_prob)^2))
+
+# Print RMSE
+cat("Root Mean Squared Error (RMSE):", rmse, "\n")
 
 # Compute metrics
 accuracy <- sum(diag(conf_matrix)) / sum(conf_matrix)

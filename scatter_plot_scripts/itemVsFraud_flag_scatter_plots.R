@@ -16,7 +16,9 @@ frequency_table <- table(unlist(apply(xTrainData[, paste0("item", 1:24)], 2, fun
 frequency_df <- as.data.frame(frequency_table)
 colnames(frequency_df) <- c("Value", "Frequency")
 frequency_df
-
+# Define the list of columns to search through
+columns_to_search <- paste0("item", 1:24)
+columns_to_search
 # Initialize an empty list to store the average fraud_flag values
 average_fraud_flags <- list()
 
